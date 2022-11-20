@@ -28,8 +28,8 @@ def buy(request, id):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
-        success_url=domain+'/success',
-        cancel_url=domain+'/cancel',
+        success_url=domain+'success',
+        cancel_url=domain+'cancel',
         mode='payment',
         line_items=[{
             'price_data': {
@@ -46,26 +46,3 @@ def buy(request, id):
     return JsonResponse({'sessionId': checkout_session['id']})
 
 
-# checkout_session = stripe.checkout.Session.create(
-#     # client_reference_id=request.user.id if request.user.is_authenticated else None,
-#     success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
-#     cancel_url=domain_url + 'cancelled/',
-#     payment_method_types=['card'],
-#     mode='payment',
-#     line_items=[{
-#         # 'name': 'T-shirt',
-#         # 'quantity': 1,
-#         # 'currency': 'usd',
-#         # 'amount': '2000',
-#         'price_data': {
-#             'currency': 'usd',
-#             'unit_amount': '2000',
-#             'product_data': {
-#                 'name': 'T-shirt'
-#             }
-#         },
-#         'quantity': 1
-#     }
-#     ]
-# )
-# return JsonResponse({'sessionId': checkout_session['id']})
