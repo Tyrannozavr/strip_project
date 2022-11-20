@@ -120,7 +120,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51M5sOtJBnBGJdzS3HO5tWnWPMk9xoOfAD37EIdz' \
+                         'vtWx10jzrwl6dHnojiMPJBcBUnnnVbqLv4iHNwuqyj1mtsw4A00VyfcZoJC'
+STRIPE_SECRET_KEY = 'sk_test_51M5sOtJBnBGJdzS3FLU5usktRsa435pbmXTnzfSjuz99' \
+                    'dx1rXJ8P250TESqB2ObuZFKAEMHwaywp7aPldfnwyIxG00EphsHg7N'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

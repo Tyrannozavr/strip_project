@@ -13,15 +13,8 @@
     products:
     {% for product in products %}
         <div>
-            {{ product.name }}
-            <br>
-            {{ product.description }}
-            <br>
-            price: {{ product.price }}
-            <form action="buy/{{ product.id }}" method="post">
-                <button type="submit">buy</button>
-            </form>
-        <h3>......................................</h3>
+        {{ product.name }}
+        <a href="item/{{ product.id }}">get details</a>
         </div>
         {% endfor %}
 </div>
