@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>test page</h1>
+<div>
+    <a href="admin">admin</a>
+</div>
+<div>
+    products:
+    {% for product in products %}
+        <div>
+            {{ product.name }}
+            <br>
+            {{ product.description }}
+            <br>
+            price: {{ product.price }}
+            <form action="buy/{{ product.id }}" method="post">
+                <button type="submit">buy</button>
+            </form>
+        <h3>......................................</h3>
+        </div>
+        {% endfor %}
+</div>
+</body>
+</html>
