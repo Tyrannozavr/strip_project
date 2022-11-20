@@ -133,3 +133,4 @@ STRIPE_SECRET_KEY = 'sk_test_51M5sOtJBnBGJdzS3FLU5usktRsa435pbmXTnzfSjuz99' \
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ACTIVE_DOMAIN = 'http://127.0.0.1:8000/'

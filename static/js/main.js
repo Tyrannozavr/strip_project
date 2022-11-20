@@ -21,5 +21,14 @@
 //   });
 // });
 function getInformation(id, publicKey) {
-  console.log('information', id, publicKey)
+  // console.log('information', id, publicKey)
+  const stripe = Stripe(publicKey);
+  fetch("/buy/"+id)
+      // .then((response) => {console.log('id', response)})
+      .then((response) => { return response.json()})
+      .then((data) => {
+        // console.log('data', data, data.sessionId)
+        return stripe.redirectToCheckout({sessionId: data.sessionId})
+          }
+      )
 };
