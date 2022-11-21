@@ -1,4 +1,6 @@
 from django.db import models
+import stripe
+from django.conf import settings
 
 def valid(data):
     if data < 50:
@@ -11,3 +13,23 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class Discount(models.Model):
+    id_coupon = models.CharField(max_length=256)
+
+    def simple_create(percent_off, duration):
+        """simple creating discount without visiting site percent_off can't be 100% and duration must be once,
+        repeating or forever"""
+
+        if duration not in ['once', 'repeating', 'forever']:
+            raise Exception('duraton must be once, repeating or forever')
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        coupon = stripe.Coupon.create(percent_off=percent_off, duration=duration)
+        Discount.objects.create(id_coupon=coupon.id)
+
+
+class Order(models.Model):
+    product = models.ManyToManyField(Product)
+
+    def __str__(self):
+        return ', '.join([i.name for i in self.product.all()])
