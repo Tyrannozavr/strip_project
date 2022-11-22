@@ -9,7 +9,7 @@
     Orders:
 </h1>
 {% for order in order_list %}
-    <a href="{{ order.id }}">{{ order }}</a> {{ order.discount }}
+    <a href="{{ order.id }}">{{ order }}</a> discount: {{ order.discount }}
 {% endfor %}
 </body>
 </html>
