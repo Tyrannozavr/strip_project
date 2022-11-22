@@ -55,6 +55,7 @@ class Tax(models.Model):
 class Order(models.Model):
     product = models.ManyToManyField(Product)
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)
+    tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return ', '.join([i.name for i in self.product.all()])
