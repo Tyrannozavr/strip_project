@@ -63,3 +63,13 @@ def buy(request, id):
         ]
     )
     return JsonResponse({'sessionId': checkout_session['id']})
+
+
+from django.views.generic import ListView, DetailView
+from .models import Order
+
+class OrderList(ListView):
+    model = Order
+    template_name = 'purchases/orderList.html'
+# def order_list(request):
+#     return render(request, 'purchases/orderList.html')

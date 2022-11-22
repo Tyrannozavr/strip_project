@@ -30,11 +30,12 @@ class Discount(models.Model):
         Discount.objects.create(id_coupon=coupon.id, percent_off=coupon.percent_off, name=coupon.name)
 
     def __str__(self):
-        return self.name if not self.name is None else 'None'
+        return self.name if not self.name is None else 'None' + ' ' + str(self.percent_off)
 
 
 class Order(models.Model):
     product = models.ManyToManyField(Product)
+    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return ', '.join([i.name for i in self.product.all()])
