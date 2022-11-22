@@ -34,28 +34,10 @@ class Discount(models.Model):
     def __str__(self):
         return (self.name if not self.name is None else 'None') + ' ' + str(self.percent_off)
 
-class Tax(models.Model):
-    id_tax = models.CharField('ID', max_length=256)
-    display_name = models.CharField('Name', max_length=256)
-    inclusive = models.BooleanField('inclusive', default=False)
-    percentage = models.DecimalField('percantage', max_digits=8, decimal_places=2)
-
-    def simple_create(display_name, percentage, inclusive=False):
-        """simple creating tax"""
-        tax = stripe.TaxRate.create(
-            display_name=display_name,
-            inclusive=inclusive,
-            percentage=percentage)
-        Tax.objects.create(id_tax=tax.id, display_name=tax.display_name, inclusive=tax.inclusive, percentage=percentage)
-
-
-    def __str__(self):
-        return self.display_name + ' ' + str(self.percentage)
 
 class Order(models.Model):
     product = models.ManyToManyField(Product)
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)
-    tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return ', '.join([i.name for i in self.product.all()])

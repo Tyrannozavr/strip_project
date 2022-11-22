@@ -6,7 +6,6 @@
     <title>Detail</title>
 </head>
 <body>
-{{ publicKey }}
 <h2>order: {{ order }}</h2>
 <h3>discount: {{ order.discount }}</h3>
 <button onclick="orderBuy({{ order.id }}, '{{ publicKey }}')">buy</button>

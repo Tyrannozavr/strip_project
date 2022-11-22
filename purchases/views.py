@@ -76,9 +76,7 @@ class OrderDetail(DetailView):
 def order_buy(request, pk):
     domain = settings.ACTIVE_DOMAIN
     order = Order.objects.get(id=pk)
-    # stripe.api_key = settings.STRIPE_SECRET_KEY
     discount = order.discount.id_coupon if order.discount else None
-    tax = order.tax.id_tax if order.tax else None
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         success_url=domain + 'success',
@@ -87,9 +85,6 @@ def order_buy(request, pk):
         discounts=[{
               'coupon': discount
           }],
-        automatic_tax={
-            'enabled': True,
-        },
         line_items=[{
             'price_data': {
                 'currency': 'usd',
