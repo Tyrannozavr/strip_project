@@ -17,19 +17,9 @@ class Product(models.Model):
         return self.name
 
 class Discount(models.Model):
-    id_coupon = models.CharField(max_length=256)
+    id_coupon = models.CharField(max_length=256, null=True, blank=True)
     percent_off = models.CharField(max_length=256)
     name = models.CharField('Name', max_length=256, null=True, blank=True)
-
-    def simple_create(percent_off, duration, name=None):
-        """simple creating discount without visiting site percent_off can't be 100% and duration must be once,
-        repeating or forever"""
-
-        if duration not in ['once', 'repeating', 'forever']:
-            raise Exception('duraton must be once, repeating or forever')
-        # stripe.api_key = settings.STRIPE_SECRET_KEY
-        coupon = stripe.Coupon.create(percent_off=percent_off, duration=duration, name=name)
-        Discount.objects.create(id_coupon=coupon.id, percent_off=coupon.percent_off, name=coupon.name)
 
     def __str__(self):
         return (self.name if not self.name is None else 'None') + ' ' + str(self.percent_off)
