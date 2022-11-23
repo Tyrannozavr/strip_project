@@ -21,7 +21,7 @@ def items(request, id):
         'name': product.name,
         'description': product.description,
         'price': product.price,
-        'publicKey': settings.STRIPE_PUBLISHABLE_KEY
+        'publicKey': settings.STRIPE_PUBLISHABLE_KEY,
     }
     return render(request, 'purchases/items.html', context=context)
 
@@ -29,7 +29,6 @@ def items(request, id):
 def buy(request, id):
     domain = settings.ACTIVE_DOMAIN
     product = Product.objects.get(id=id)
-    # stripe.api_key = settings.STRIPE_SECRET_KEY
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         success_url=domain + 'success',
@@ -45,19 +44,7 @@ def buy(request, id):
                 }
             },
             'quantity': 1
-        },
-            {
-                'price_data': {
-                    'currency': 'usd',
-                    'unit_amount': 333,
-                    'product_data': {
-                        'name': 'test_product',
-                        'description': 'null'
-                    }
-                },
-                'quantity': 2
-            }
-        ]
+        }]
     )
     return JsonResponse({'sessionId': checkout_session['id']})
 
@@ -97,3 +84,7 @@ def order_buy(request, pk):
         'quantity': 1} for product in order.product.all()
         ])
     return JsonResponse({'sessionId': checkout_session['id']})
+
+
+def success(request):
+    return render(request, 'purchases/success.html')

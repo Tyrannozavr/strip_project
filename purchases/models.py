@@ -20,6 +20,12 @@ class Discount(models.Model):
     id_coupon = models.CharField(max_length=256, null=True, blank=True)
     percent_off = models.CharField(max_length=256)
     name = models.CharField('Name', max_length=256, null=True, blank=True)
+    choices = [
+        ('once', 'once'),
+        ('repeating', 'repeating'),
+        ('forever', 'forever')]
+    duration = models.CharField(choices=choices, max_length=256)
+
 
     def __str__(self):
         return (self.name if not self.name is None else 'None') + ' ' + str(self.percent_off)
