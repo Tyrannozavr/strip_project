@@ -1,7 +1,8 @@
-from django.contrib import admin
-from .models import *
-from django.conf import settings
 import stripe
+from django.conf import settings
+from django.contrib import admin
+
+from .models import *
 
 stripe.api_kay = settings.STRIPE_SECRET_KEY
 

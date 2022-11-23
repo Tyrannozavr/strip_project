@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+
 import environ
 
 env = environ.Env()
@@ -23,13 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-^3s6wk&=6u+ri7wx&m%c!-_xh#f$p!(6t87=s=2d25r@bj6q$i'
+
+
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 # Application definition
 
@@ -60,8 +62,7 @@ ROOT_URLCONF = 'strip_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,10 +122,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# STRIPE_PUBLISHABLE_KEY = 'pk_test_51M5sOtJBnBGJdzS3HO5tWnWPMk9xoOfAD37EIdz' \
-#                          'vtWx10jzrwl6dHnojiMPJBcBUnnnVbqLv4iHNwuqyj1mtsw4A00VyfcZoJC'
-# STRIPE_SECRET_KEY = 'sk_test_51M5sOtJBnBGJdzS3FLU5usktRsa435pbmXTnzfSjuz99' \
-#                     'dx1rXJ8P250TESqB2ObuZFKAEMHwaywp7aPldfnwyIxG00EphsHg7N'
+
 STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
@@ -132,5 +130,4 @@ STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# ACTIVE_DOMAIN = 'http://127.0.0.1:8000/'
 ACTIVE_DOMAIN = env('ACTIVE_DOMAIN')  # requred for stripe
