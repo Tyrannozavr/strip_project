@@ -11,22 +11,25 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^3s6wk&=6u+ri7wx&m%c!-_xh#f$p!(6t87=s=2d25r@bj6q$i'
+# SECRET_KEY = 'django-insecure-^3s6wk&=6u+ri7wx&m%c!-_xh#f$p!(6t87=s=2d25r@bj6q$i'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -37,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
 
     # locals
     'purchases.apps.PurchasesConfig',
@@ -74,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'strip_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -84,7 +85,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -104,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -116,21 +115,22 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51M5sOtJBnBGJdzS3HO5tWnWPMk9xoOfAD37EIdz' \
-                         'vtWx10jzrwl6dHnojiMPJBcBUnnnVbqLv4iHNwuqyj1mtsw4A00VyfcZoJC'
-STRIPE_SECRET_KEY = 'sk_test_51M5sOtJBnBGJdzS3FLU5usktRsa435pbmXTnzfSjuz99' \
-                    'dx1rXJ8P250TESqB2ObuZFKAEMHwaywp7aPldfnwyIxG00EphsHg7N'
+# STRIPE_PUBLISHABLE_KEY = 'pk_test_51M5sOtJBnBGJdzS3HO5tWnWPMk9xoOfAD37EIdz' \
+#                          'vtWx10jzrwl6dHnojiMPJBcBUnnnVbqLv4iHNwuqyj1mtsw4A00VyfcZoJC'
+# STRIPE_SECRET_KEY = 'sk_test_51M5sOtJBnBGJdzS3FLU5usktRsa435pbmXTnzfSjuz99' \
+#                     'dx1rXJ8P250TESqB2ObuZFKAEMHwaywp7aPldfnwyIxG00EphsHg7N'
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-ACTIVE_DOMAIN = 'http://127.0.0.1:8000/'
+# ACTIVE_DOMAIN = 'http://127.0.0.1:8000/'
+ACTIVE_DOMAIN = env('ACTIVE_DOMAIN')  # requred for stripe
