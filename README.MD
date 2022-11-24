@@ -1,6 +1,7 @@
 # Для запуска проекта
 ### git clone https://github.com/Tyrannozavr/strip_project
 ###  cd strip_project/
+### sudo chmod +x scrypt.sh
 ### docker-compose up
 ## теперь проект доступен по адресу: http://0.0.0.0:8000/
 на первой странице для удобста я вывел все продукты списком со ссылками на требуемые в задании страницы
